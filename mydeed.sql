@@ -75,7 +75,7 @@ CREATE TABLE `clientes` (
   `observacao` varchar(300) DEFAULT NULL,
   `cnpj` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,7 +84,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (1,'Janio',NULL,NULL);
+INSERT INTO `clientes` VALUES (1,'Janio',NULL,NULL),(2,'Frederico',NULL,NULL),(3,'rodonildo',NULL,NULL),(4,'jantão',NULL,NULL),(5,'Pantego',NULL,NULL);
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,4 +210,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-10-20  8:59:30
+-- Dump completed on 2015-11-03 23:57:31
