@@ -23,8 +23,9 @@ DROP TABLE IF EXISTS `acoes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `acoes` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `descricao` varchar(20) DEFAULT NULL,
+  `empresa` int(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -35,7 +36,7 @@ CREATE TABLE `acoes` (
 
 LOCK TABLES `acoes` WRITE;
 /*!40000 ALTER TABLE `acoes` DISABLE KEYS */;
-INSERT INTO `acoes` VALUES (1,'teste de ação'),(2,'teste de ação2');
+INSERT INTO `acoes` VALUES (1,'teste de ação',0),(2,'teste de ação2',0);
 /*!40000 ALTER TABLE `acoes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -47,8 +48,8 @@ DROP TABLE IF EXISTS `acoes_servicos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `acoes_servicos` (
-  `id_acao` int(6) NOT NULL,
-  `id_servico` int(6) NOT NULL
+  `id_acao` int(10) NOT NULL,
+  `id_servico` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -70,10 +71,11 @@ DROP TABLE IF EXISTS `clientes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `clientes` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `nome` varchar(20) NOT NULL,
   `observacao` varchar(300) DEFAULT NULL,
   `cnpj` varchar(25) DEFAULT NULL,
+  `empresa` int(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -84,8 +86,34 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (1,'Janio',NULL,NULL),(2,'Frederico',NULL,NULL),(3,'rodonildo',NULL,NULL),(4,'jantão',NULL,NULL),(5,'Pantego',NULL,NULL);
+INSERT INTO `clientes` VALUES (1,'Janio',NULL,NULL,0),(2,'Frederico',NULL,NULL,0),(3,'rodonildo',NULL,NULL,0),(4,'jantão',NULL,NULL,0),(5,'Pantego',NULL,NULL,0);
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `empresas`
+--
+
+DROP TABLE IF EXISTS `empresas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `empresas` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) DEFAULT NULL,
+  `cnpj` varchar(30) DEFAULT NULL,
+  `identificador` varchar(20) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `empresas`
+--
+
+LOCK TABLES `empresas` WRITE;
+/*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -96,12 +124,13 @@ DROP TABLE IF EXISTS `mensagens`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `mensagens` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `descricao` varchar(500) DEFAULT NULL,
   `autor` int(6) NOT NULL,
   `imagem` varchar(200) DEFAULT NULL,
-  `servico` int(6) DEFAULT NULL,
-  `data` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `servico` int(10) NOT NULL,
+  `data` datetime DEFAULT NULL,
+  `empresa` int(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -112,7 +141,7 @@ CREATE TABLE `mensagens` (
 
 LOCK TABLES `mensagens` WRITE;
 /*!40000 ALTER TABLE `mensagens` DISABLE KEYS */;
-INSERT INTO `mensagens` VALUES (1,'primeira mensagem',14,'download',5,'2015-10-08 18:11:10'),(2,'segunda mensagem',13,'download_2',5,'2015-10-08 22:15:27'),(3,'terceira mensagem',13,'download_3',5,'2015-10-09 13:37:11'),(5,'uma mensagem',13,'download_3',1,'2015-10-09 13:42:31');
+INSERT INTO `mensagens` VALUES (1,'primeira mensagem',14,'download',5,'2015-10-08 15:11:10',0),(2,'segunda mensagem',13,'download_2',5,'2015-10-08 19:15:27',0),(3,'terceira mensagem',13,'download_3',5,'2015-10-09 10:37:11',0),(5,'uma mensagem',13,'download_3',1,'2015-10-09 10:42:31',0);
 /*!40000 ALTER TABLE `mensagens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,8 +153,8 @@ DROP TABLE IF EXISTS `mensagens_servicos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `mensagens_servicos` (
-  `id_mensagem` int(6) NOT NULL,
-  `id_servico` int(6) NOT NULL
+  `id_mensagem` int(10) NOT NULL,
+  `id_servico` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -146,16 +175,17 @@ DROP TABLE IF EXISTS `servicos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `servicos` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
-  `dataChegada` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `dataSaida` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `dataChegada` datetime DEFAULT NULL,
+  `dataSaida` datetime DEFAULT NULL,
   `descricaoRapida` varchar(200) DEFAULT NULL,
   `observacoes` varchar(300) DEFAULT NULL,
   `autor` int(6) DEFAULT NULL,
   `cliente` int(6) DEFAULT NULL,
   `os` int(6) DEFAULT NULL,
   `equipamento` varchar(100) DEFAULT NULL,
-  `dataPostagem` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `dataPostagem` datetime DEFAULT NULL,
+  `empresa` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_autor` (`autor`),
   KEY `fk_cliente` (`cliente`),
@@ -170,7 +200,7 @@ CREATE TABLE `servicos` (
 
 LOCK TABLES `servicos` WRITE;
 /*!40000 ALTER TABLE `servicos` DISABLE KEYS */;
-INSERT INTO `servicos` VALUES (1,'2015-10-09 17:15:10','1995-08-26 12:45:00','teste de datas',NULL,NULL,NULL,1,NULL,'2015-10-09 17:12:00'),(2,'2015-10-09 17:16:51','2013-01-21 23:12:12',NULL,NULL,NULL,NULL,1,NULL,'2015-10-09 17:12:00'),(3,'2015-10-09 17:16:54','2014-10-15 19:47:23',NULL,NULL,NULL,NULL,1,NULL,'2015-10-09 17:12:00'),(4,'2015-10-09 17:16:56','2014-01-15 18:47:23',NULL,NULL,NULL,NULL,1,NULL,'2015-10-09 17:12:00'),(5,'2015-08-08 16:45:32','2015-08-08 20:38:01','teste 1','obs',14,1,1,'equipamento 1','2015-08-08 20:46:23');
+INSERT INTO `servicos` VALUES (1,'2015-10-09 14:15:10','1995-08-26 09:45:00','teste de datas',NULL,NULL,NULL,1,NULL,'2015-10-09 14:12:00',0),(2,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,NULL,NULL,1,NULL,'2015-10-09 14:12:00',0),(3,'2015-10-09 14:16:54','2014-10-15 16:47:23',NULL,NULL,NULL,NULL,1,NULL,'2015-10-09 14:12:00',0),(4,'2015-10-09 14:16:56','2014-01-15 16:47:23',NULL,NULL,NULL,NULL,1,NULL,'2015-10-09 14:12:00',0),(5,'2015-08-08 13:45:32','2015-08-08 17:38:01','teste 1','obs',14,1,1,'equipamento 1','2015-08-08 17:46:23',0);
 /*!40000 ALTER TABLE `servicos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,13 +212,14 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuarios` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `nome` varchar(30) DEFAULT NULL,
   `email` varchar(50) NOT NULL,
   `senha` varchar(50) NOT NULL,
   `cpf` varchar(11) DEFAULT NULL,
+  `empresa` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -197,7 +228,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (13,'Bruno','brunoricardoideal@gmail.com','654321',NULL),(14,'Rise','contato@risetecnologia.com','123456',NULL),(15,'Usuario a mais','email@email.toco','123rewrk9',NULL);
+INSERT INTO `usuarios` VALUES (13,'Bruno','brunoricardoideal@gmail.com','654321',NULL,0),(14,'Rise','contato@risetecnologia.com','123456',NULL,0),(15,'Usuario a mais','email@email.toco','123rewrk9',NULL,0);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -210,4 +241,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-03 23:57:31
+-- Dump completed on 2015-11-11 22:06:12
