@@ -27,7 +27,7 @@ CREATE TABLE `acoes` (
   `descricao` varchar(20) DEFAULT NULL,
   `empresa` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `acoes` (
 
 LOCK TABLES `acoes` WRITE;
 /*!40000 ALTER TABLE `acoes` DISABLE KEYS */;
-INSERT INTO `acoes` VALUES (1,'teste de ação',0),(2,'teste de ação2',0);
+INSERT INTO `acoes` VALUES (1,'teste de ação',1),(2,'teste de ação2',1),(3,'teste de ação3',1),(4,'teste de ação4',1),(5,'teste de ação5',2),(6,'teste de ação5',1);
 /*!40000 ALTER TABLE `acoes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +86,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (1,'Janio',NULL,NULL,0),(2,'Frederico',NULL,NULL,0),(3,'rodonildo',NULL,NULL,0),(4,'jantão',NULL,NULL,0),(5,'Pantego',NULL,NULL,0);
+INSERT INTO `clientes` VALUES (1,'Janio',NULL,NULL,1),(2,'Frederico',NULL,NULL,1),(3,'rodonildo',NULL,NULL,1),(4,'jantão',NULL,NULL,1),(5,'Pantego',NULL,NULL,1);
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,7 +104,7 @@ CREATE TABLE `empresas` (
   `identificador` varchar(20) DEFAULT NULL,
   `email` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,6 +113,7 @@ CREATE TABLE `empresas` (
 
 LOCK TABLES `empresas` WRITE;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
+INSERT INTO `empresas` VALUES (1,'Rise_Tec',NULL,NULL,NULL),(2,'Another',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,7 +142,7 @@ CREATE TABLE `mensagens` (
 
 LOCK TABLES `mensagens` WRITE;
 /*!40000 ALTER TABLE `mensagens` DISABLE KEYS */;
-INSERT INTO `mensagens` VALUES (1,'primeira mensagem',14,'download',5,'2015-10-08 15:11:10',0),(2,'segunda mensagem',13,'download_2',5,'2015-10-08 19:15:27',0),(3,'terceira mensagem',13,'download_3',5,'2015-10-09 10:37:11',0),(5,'uma mensagem',13,'download_3',1,'2015-10-09 10:42:31',0);
+INSERT INTO `mensagens` VALUES (1,'primeira mensagem',14,'download',5,'2015-10-08 15:11:10',1),(2,'segunda mensagem',13,'download_2',5,'2015-10-08 19:15:27',1),(3,'terceira mensagem',13,'download_3',5,'2015-10-09 10:37:11',1),(5,'uma mensagem',13,'download_3',1,'2015-10-09 10:42:31',1);
 /*!40000 ALTER TABLE `mensagens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,7 +201,7 @@ CREATE TABLE `servicos` (
 
 LOCK TABLES `servicos` WRITE;
 /*!40000 ALTER TABLE `servicos` DISABLE KEYS */;
-INSERT INTO `servicos` VALUES (1,'2015-10-09 14:15:10','1995-08-26 09:45:00','teste de datas',NULL,NULL,NULL,1,NULL,'2015-10-09 14:12:00',0),(2,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,NULL,NULL,1,NULL,'2015-10-09 14:12:00',0),(3,'2015-10-09 14:16:54','2014-10-15 16:47:23',NULL,NULL,NULL,NULL,1,NULL,'2015-10-09 14:12:00',0),(4,'2015-10-09 14:16:56','2014-01-15 16:47:23',NULL,NULL,NULL,NULL,1,NULL,'2015-10-09 14:12:00',0),(5,'2015-08-08 13:45:32','2015-08-08 17:38:01','teste 1','obs',14,1,1,'equipamento 1','2015-08-08 17:46:23',0);
+INSERT INTO `servicos` VALUES (1,'2015-10-09 14:15:10','1995-08-26 09:45:00','teste de datas',NULL,NULL,NULL,1,NULL,'2015-10-09 14:12:00',1),(2,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,NULL,NULL,1,NULL,'2015-10-09 14:12:00',1),(3,'2015-10-09 14:16:54','2014-10-15 16:47:23',NULL,NULL,NULL,NULL,1,NULL,'2015-10-09 14:12:00',1),(4,'2015-10-09 14:16:56','2014-01-15 16:47:23',NULL,NULL,NULL,NULL,1,NULL,'2015-10-09 14:12:00',1),(5,'2015-08-08 13:45:32','2015-08-08 17:38:01','teste 1','obs',14,1,1,'equipamento 1','2015-08-08 17:46:23',1);
 /*!40000 ALTER TABLE `servicos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -218,8 +219,9 @@ CREATE TABLE `usuarios` (
   `senha` varchar(50) NOT NULL,
   `cpf` varchar(11) DEFAULT NULL,
   `empresa` int(10) NOT NULL,
+  `hash` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,7 +230,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (13,'Bruno','brunoricardoideal@gmail.com','654321',NULL,0),(14,'Rise','contato@risetecnologia.com','123456',NULL,0),(15,'Usuario a mais','email@email.toco','123rewrk9',NULL,0);
+INSERT INTO `usuarios` VALUES (13,'Bruno','brunoricardoideal@gmail.com','654321',NULL,2,'hash@1234'),(14,'Rise','contato@risetecnologia.com','123456',NULL,1,'@123'),(15,'Usuario a mais','email@email.toco','123rewrk9',NULL,1,'12'),(17,'Usuario emp 2','dafinta@emp.com','*Dafintinha',NULL,2,NULL),(18,'Usuario emp 1','danton@emp.com','$Danton',NULL,1,NULL);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -241,4 +243,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-11 22:06:12
+-- Dump completed on 2015-11-13 21:08:09
