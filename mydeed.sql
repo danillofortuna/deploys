@@ -64,6 +64,42 @@ INSERT INTO `acoes_servicos` VALUES (1,5),(2,5),(1,7),(2,7),(1,8),(2,8),(1,9),(2
 UNLOCK TABLES;
 
 --
+-- Table structure for table `chamados`
+--
+
+DROP TABLE IF EXISTS `chamados`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `chamados` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(40) DEFAULT NULL,
+  `autor` int(10) DEFAULT NULL,
+  `cliente` int(10) DEFAULT NULL,
+  `usuario` int(10) DEFAULT NULL,
+  `empresa` int(10) DEFAULT NULL,
+  `descricao` varchar(3000) DEFAULT NULL,
+  `produto` int(10) DEFAULT NULL,
+  `status` int(10) DEFAULT NULL,
+  `dataAbertura` datetime DEFAULT NULL,
+  `dataInicio` datetime DEFAULT NULL,
+  `dataFinalizacao` datetime DEFAULT NULL,
+  `dataVisualizacao` datetime DEFAULT NULL,
+  `responsavel` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `chamados`
+--
+
+LOCK TABLES `chamados` WRITE;
+/*!40000 ALTER TABLE `chamados` DISABLE KEYS */;
+INSERT INTO `chamados` VALUES (2,'Primeiro Chamado',14,1,14,1,'Chamado para testar a busca',2,0,'2016-02-11 00:00:00','2016-02-25 00:45:05','2016-02-25 01:49:00','2016-02-25 00:45:00',15),(3,'teste',14,1,14,1,'teste vey',2,0,NULL,'2016-02-25 00:45:00',NULL,NULL,NULL),(4,'Primeiro inserido pelo browser',15,1,NULL,1,'teste suave',2,0,NULL,'2016-02-25 00:45:00',NULL,NULL,NULL);
+/*!40000 ALTER TABLE `chamados` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `clientes`
 --
 
@@ -184,11 +220,11 @@ CREATE TABLE `mensagens` (
   `descricao` varchar(500) DEFAULT NULL,
   `autor` int(6) NOT NULL,
   `imagem` varchar(200) DEFAULT NULL,
-  `servico` int(10) NOT NULL,
   `data` datetime DEFAULT NULL,
   `empresa` int(10) NOT NULL,
+  `chamado` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -197,7 +233,7 @@ CREATE TABLE `mensagens` (
 
 LOCK TABLES `mensagens` WRITE;
 /*!40000 ALTER TABLE `mensagens` DISABLE KEYS */;
-INSERT INTO `mensagens` VALUES (1,'primeira mensagem',14,'download',5,'2015-10-08 15:11:10',1),(2,'segunda mensagem',13,'download_2',5,'2015-10-08 19:15:27',1),(3,'terceira mensagem',13,'download_3',5,'2015-10-09 10:37:11',1),(5,'uma mensagem',13,'download_3',1,'2015-10-09 10:42:31',1);
+INSERT INTO `mensagens` VALUES (6,'Teste de mensagem',13,NULL,'2015-10-09 10:42:31',2,2),(7,'Segundo teste de mensagem',13,NULL,'2016-01-09 23:11:02',2,2),(8,'Teste de Mensagem',15,NULL,'2016-02-02 01:23:10',1,2),(9,'primeira mensagem via browser',15,NULL,'2016-02-25 01:09:31',1,2);
 /*!40000 ALTER TABLE `mensagens` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -237,7 +273,7 @@ CREATE TABLE `procedimentos` (
   `servico` int(10) NOT NULL,
   `empresa` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -246,7 +282,7 @@ CREATE TABLE `procedimentos` (
 
 LOCK TABLES `procedimentos` WRITE;
 /*!40000 ALTER TABLE `procedimentos` DISABLE KEYS */;
-INSERT INTO `procedimentos` VALUES (1,2,1,1,1),(2,2,1,2,1),(3,2,1,16,1);
+INSERT INTO `procedimentos` VALUES (1,2,1,1,1),(2,2,1,2,1),(3,2,1,16,1),(4,1,1,17,1),(5,1,1,20,1),(6,1,1,21,1),(7,1,1,22,1),(8,1,1,24,1),(9,1,1,25,1),(10,4,1,25,1),(11,1,1,26,1),(12,4,1,26,1);
 /*!40000 ALTER TABLE `procedimentos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,7 +335,7 @@ CREATE TABLE `servicos` (
   KEY `fk_cliente` (`cliente`),
   CONSTRAINT `fk_autor` FOREIGN KEY (`autor`) REFERENCES `usuarios` (`id`),
   CONSTRAINT `fk_cliente` FOREIGN KEY (`cliente`) REFERENCES `clientes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -308,7 +344,7 @@ CREATE TABLE `servicos` (
 
 LOCK TABLES `servicos` WRITE;
 /*!40000 ALTER TABLE `servicos` DISABLE KEYS */;
-INSERT INTO `servicos` VALUES (1,'2015-10-09 14:15:10','1995-08-26 09:45:00','teste de datas',NULL,NULL,NULL,1,'2015-10-09 14:12:00',1,NULL),(2,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,NULL,NULL,1,'2015-10-09 14:12:00',1,NULL),(3,'2015-10-09 14:16:54','2014-10-15 16:47:23',NULL,NULL,NULL,NULL,1,'2015-10-09 14:12:00',1,NULL),(4,'2015-10-09 14:16:56','2014-01-15 16:47:23',NULL,NULL,NULL,NULL,1,'2015-10-09 14:12:00',1,NULL),(5,'2015-08-08 13:45:32','2015-08-08 17:38:01','teste 1','obs',14,1,1,'2015-08-08 17:46:23',1,NULL),(7,'2015-08-08 13:45:32','2015-08-08 17:38:01','teste converter','obs',NULL,1,1,'2015-08-08 17:46:23',1,NULL),(8,'2015-08-08 13:45:32','2015-08-08 17:38:01','teste converter','obs',14,1,1,'2015-08-08 17:46:23',1,NULL),(9,'2015-08-08 13:45:32','2015-08-08 17:38:01','teste converter','obs',14,1,1,'2015-08-08 17:46:23',1,NULL),(10,'2015-11-25 20:40:00','2015-11-25 20:40:00','descricao','obs',14,NULL,134,'2015-11-25 20:41:01',1,NULL),(11,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,15,NULL,1,'2015-10-09 14:12:00',1,NULL),(12,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,15,NULL,1,'2015-10-09 14:12:00',1,NULL),(13,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,15,NULL,1,'2015-10-09 14:12:00',1,NULL),(14,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,15,NULL,1,'2015-10-09 14:12:00',1,NULL),(15,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,15,NULL,1,'2015-10-09 14:12:00',1,1),(16,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,15,NULL,1,'2015-10-09 14:12:00',1,1);
+INSERT INTO `servicos` VALUES (1,'2015-10-09 14:15:10','1995-08-26 09:45:00','teste de datas',NULL,NULL,NULL,1,'2015-10-09 14:12:00',1,NULL),(2,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,NULL,NULL,1,'2015-10-09 14:12:00',1,NULL),(3,'2015-10-09 14:16:54','2014-10-15 16:47:23',NULL,NULL,NULL,NULL,1,'2015-10-09 14:12:00',1,NULL),(4,'2015-10-09 14:16:56','2014-01-15 16:47:23',NULL,NULL,NULL,NULL,1,'2015-10-09 14:12:00',1,NULL),(5,'2015-08-08 13:45:32','2015-08-08 17:38:01','teste 1','obs',14,1,1,'2015-08-08 17:46:23',1,NULL),(7,'2015-08-08 13:45:32','2015-08-08 17:38:01','teste converter','obs',NULL,1,1,'2015-08-08 17:46:23',1,NULL),(8,'2015-08-08 13:45:32','2015-08-08 17:38:01','teste converter','obs',14,1,1,'2015-08-08 17:46:23',1,NULL),(9,'2015-08-08 13:45:32','2015-08-08 17:38:01','teste converter','obs',14,1,1,'2015-08-08 17:46:23',1,NULL),(10,'2015-11-25 20:40:00','2015-11-25 20:40:00','descricao','obs',14,NULL,134,'2015-11-25 20:41:01',1,NULL),(11,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,15,NULL,1,'2015-10-09 14:12:00',1,NULL),(12,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,15,NULL,1,'2015-10-09 14:12:00',1,NULL),(13,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,15,NULL,1,'2015-10-09 14:12:00',1,NULL),(14,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,15,NULL,1,'2015-10-09 14:12:00',1,NULL),(15,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,15,NULL,1,'2015-10-09 14:12:00',1,1),(16,'2015-10-09 14:16:51','2013-01-21 21:12:12',NULL,NULL,15,NULL,1,'2015-10-09 14:12:00',1,1),(17,'2016-01-18 21:40:00','2013-01-21 21:12:12',NULL,NULL,14,NULL,1,'2015-10-09 14:12:00',1,1),(18,'2016-01-19 18:34:00','2016-01-19 18:34:00','somente 1 proc','sad asdasdwqe',14,2,1201,'2016-01-19 18:34:28',1,1),(19,'2016-01-19 18:34:00','2016-01-19 18:34:00','somente 1 proc','sad asdasdwqe',14,2,1201,'2016-01-19 18:34:28',1,1),(20,'2016-01-19 18:34:00','2016-01-19 18:34:00','somente 1 proc','sad asdasdwqe',14,2,1201,'2016-01-19 18:34:28',1,1),(21,'2016-01-19 18:34:00','2016-01-19 18:34:00','somente 1 proc','sad asdasdwqe',14,2,1201,'2016-01-19 18:34:28',1,1),(22,'2016-01-19 18:34:00','2016-01-19 18:34:00','teste bruno','',14,2,120,'2016-01-19 18:34:28',1,1),(23,'2016-01-19 18:34:00','2016-01-19 18:34:00','teste bruno','',14,2,120,'2016-01-19 18:34:28',1,1),(24,'2016-01-19 18:34:00','2016-01-19 18:34:00','teste bruno','',14,2,120,'2016-01-19 18:34:28',1,1),(25,'2016-01-19 18:34:00','2016-01-19 18:34:00','teste bruno','',14,2,120,'2016-01-19 18:34:28',1,1),(26,'2016-02-24 08:21:00','2016-02-24 18:07:00','serviço da hoje','eu fiz tickets aleatorios',15,2,121,'2016-02-24 23:03:28',1,1);
 /*!40000 ALTER TABLE `servicos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -337,7 +373,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (13,'Bruno','brunoricardoideal@gmail.com','654321',NULL,2,'hash@1234'),(14,'Rise','contato@risetecnologia.com','123456',NULL,1,'00000000000000000000000000000000'),(15,'Usuario a mais','email@email.toco','123rewrk9',NULL,1,'12'),(17,'Usuario emp 2','dafinta@emp.com','*Dafintinha',NULL,2,NULL),(18,'Usuario emp 1','danton@emp.com','$Danton',NULL,1,NULL);
+INSERT INTO `usuarios` VALUES (13,'Bruno','brunoricardoideal@gmail.com','654321',NULL,2,'hash@1234'),(14,'Rise','contato@risetecnologia.com','123456',NULL,1,NULL),(15,'Usuario a mais','email@email.toco','123rewrk9',NULL,1,'12'),(17,'Usuario emp 2','dafinta@emp.com','*Dafintinha',NULL,2,NULL),(18,'Usuario emp 1','danton@emp.com','$Danton',NULL,1,NULL);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -350,4 +386,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-09 13:23:56
+-- Dump completed on 2016-02-25 22:46:55
